@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cloudcomputing.company.company.domain.Company;
 import com.cloudcomputing.company.company.domain.CompanyRepository;
-import com.cloudcomputing.company.company.exception.NotFoundCompanyException;
 import com.cloudcomputing.company.company.infra.http.response.CompanyResponse;
 
 import lombok.RequiredArgsConstructor;
@@ -16,17 +15,17 @@ import lombok.RequiredArgsConstructor;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class CompanyServiceImpl implements CompanyService{
+public class CompanyServiceImpl implements CompanyService {
 
     private final CompanyRepository companyRepository;
 
     @Override
-    public List<Company> getList(int page) {
-        return companyRepository.getList(PageRequest.of(page-1, 15));
+    public List<CompanyResponse> getList(int page) {
+        return companyRepository.getList(PageRequest.of(page - 1, 15));
     }
 
     @Override
     public Company get(Long companyId) {
-        return companyRepository.getById(companyId).orElseThrow(NotFoundCompanyException::new);
+        return companyRepository.getById(companyId);
     }
 }

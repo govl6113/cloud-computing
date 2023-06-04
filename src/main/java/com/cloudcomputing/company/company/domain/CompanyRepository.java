@@ -1,13 +1,14 @@
 package com.cloudcomputing.company.company.domain;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Pageable;
 
+import com.cloudcomputing.company.company.infra.http.response.CompanyResponse;
+
 public interface CompanyRepository {
 
-    List<Company> getList(Pageable pageable);
+    List<CompanyResponse> getList(Pageable pageable);
 
-    Optional<Company> getById(Long companyId);
+    Company getById(Long companyId);
 }
