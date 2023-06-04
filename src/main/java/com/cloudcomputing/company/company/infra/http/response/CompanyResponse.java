@@ -20,17 +20,23 @@ public class CompanyResponse {
 
     Short foundation;
 
+    Integer reviewCount;
+
     Float star;
+
+    String image;
 
     @Builder
     public CompanyResponse(
             Company company
-    ){
+    ) {
         this.id = company.getId();
         this.name = company.getName();
         this.homepage = company.getHomepage();
         this.location = company.getLocation();
         this.foundation = company.getFoundation();
+        this.reviewCount = company.getReviewCount();
         this.star = company.getStar();
+        this.image = company.getImage();
     }
 }

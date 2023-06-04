@@ -27,12 +27,30 @@ public class Company extends Core {
     @Column(nullable = true)
     private Short foundation;
 
-   @ColumnDefault("0.0")
+    @ColumnDefault("0")
+    private Integer reviewCount = 0;
+
+    @ColumnDefault("0.0")
     private Float star;
 
-   public CompanyResponse toResponse(){
-       return CompanyResponse.builder()
-               .company(this)
-               .build();
-   }
+    @Column(nullable = true)
+    private String image;
+
+    public void updateReviewCount(Boolean reviewCountIncrease) {
+        if (reviewCountIncrease) {
+            this.reviewCount += 1;
+        } else {
+            this.reviewCount -= 1;
+        }
+    }
+
+    public void updateStar(Float star) {
+        this.star = (this.star * (this.reviewCount - 1) + star) / this.reviewCount;
+    }
+
+    public CompanyResponse toResponse() {
+        return CompanyResponse.builder()
+                              .company(this)
+                              .build();
+    }
 }

@@ -6,7 +6,7 @@ import com.cloudcomputing.company.company.domain.Company;
 import com.cloudcomputing.company.company.infra.http.response.CompanyResponse;
 
 public interface CompanyService {
-    List<Company> getList(int page);
+    List<CompanyResponse> getList(int page);
 
     Company get(Long companyId);
 }

@@ -10,6 +10,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,7 +23,7 @@ public class Review extends Core {
     @JoinColumn(name = "company_id")
     private Company company;
 
-   @Column(nullable = false, length = 36)
+    @Column(nullable = false, length = 36)
     private String title;
 
     @Column(nullable = false, length = 300)
@@ -32,11 +33,42 @@ public class Review extends Core {
     private Float star;
 
     @Column(nullable = false)
-    private String writerNickname;
+    private Long writerId;
 
-    public ReviewResponse toResponse(){
+    @Column(nullable = false)
+    private String writerEmail;
+
+    @Builder
+    public Review(
+            Company company,
+            String title,
+            String content,
+            Float star,
+            Long writerId,
+            String writerEmail
+    ) {
+        this.company = company;
+        this.title = title;
+        this.content = content;
+        this.star = star;
+        this.writerId = writerId;
+        this.writerEmail = writerEmail;
+    }
+
+    public Review update(
+            String title,
+            String content,
+            Float star
+    ) {
+        this.title = title;
+        this.content = content;
+        this.star = star;
+        return this;
+    }
+
+    public ReviewResponse toResponse() {
         return ReviewResponse.builder()
-                .review(this)
-                .build();
+                             .review(this)
+                             .build();
     }
 }

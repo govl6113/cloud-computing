@@ -24,16 +24,19 @@ public class ReviewResponse {
 
     Float star;
 
-    String writerNickname;
+    Long writerId;
+
+    String writerEmail;
 
     @Builder
-    public ReviewResponse(Review review){
+    public ReviewResponse(Review review) {
         this.id = review.getId().toString();
         this.createdAt = review.getCreatedAt();
         this.updatedAt = review.getUpdatedAt();
         this.title = review.getTitle();
         this.content = review.getContent();
         this.star = review.getStar();
-        this.writerNickname = review.getWriterNickname();
+        this.writerId = review.getWriterId();
+        this.writerEmail = review.getWriterEmail();
     }
 }
