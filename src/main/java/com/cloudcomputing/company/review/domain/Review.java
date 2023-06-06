@@ -36,7 +36,7 @@ public class Review extends Core {
     private Long writerId;
 
     @Column(nullable = false)
-    private String writerEmail;
+    private String writerNickname;
 
     @Builder
     public Review(
@@ -45,14 +45,14 @@ public class Review extends Core {
             String content,
             Float star,
             Long writerId,
-            String writerEmail
+            String writerNickname
     ) {
         this.company = company;
         this.title = title;
         this.content = content;
         this.star = star;
         this.writerId = writerId;
-        this.writerEmail = writerEmail;
+        this.writerNickname = writerNickname;
     }
 
     public Review update(
