@@ -11,15 +11,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReviewCreateRequest {
+    Long userId;
 
-    Long companyId;
+    String userCompanyName;
 
-    String writerId;
+    String userNickname;
 
-    String title;
+    Long reviewCompanyId;
 
-    String content;
+    String reviewTitle;
 
-    Float star;
+    String reviewContent;
+
+    Float reviewStar;
 
 }

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cloudcomputing.company.common.domain.User;
 import com.cloudcomputing.company.review.application.ReviewService;
 import com.cloudcomputing.company.review.domain.Review;
 import com.cloudcomputing.company.review.infra.http.request.ReviewCreateRequest;
@@ -42,19 +41,17 @@ public class ReviewController {
 
     @PostMapping("/new")
     public ResponseEntity<ReviewResponse> create(
-            @RequestBody @Valid User user,
             @RequestBody @Valid ReviewCreateRequest request
     ) {
-        return ResponseEntity.ok().body(reviewService.create(user, request).toResponse());
+        return ResponseEntity.ok().body(reviewService.create(request).toResponse());
     }
 
     @PutMapping("/{reviewId}")
     public ResponseEntity<ReviewResponse> update(
             @PathVariable("reviewId") @Valid @NotBlank Long reviewId,
-            @RequestBody @Valid User user,
             @RequestBody @Valid ReviewUpdateRequest request
     ) {
-        return ResponseEntity.ok().body(reviewService.update(reviewId, user, request).toResponse());
+        return ResponseEntity.ok().body(reviewService.update(reviewId, request).toResponse());
     }
 
 }

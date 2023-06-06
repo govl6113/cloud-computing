@@ -26,7 +26,7 @@ public class ReviewResponse {
 
     Long writerId;
 
-    String writerEmail;
+    String writerNickname;
 
     @Builder
     public ReviewResponse(Review review) {
@@ -37,6 +37,6 @@ public class ReviewResponse {
         this.content = review.getContent();
         this.star = review.getStar();
         this.writerId = review.getWriterId();
-        this.writerEmail = review.getWriterEmail();
+        this.writerNickname = review.getWriterNickname();
     }
 }
