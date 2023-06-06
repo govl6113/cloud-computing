@@ -6,7 +6,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cloudcomputing.company.common.domain.User;
 import com.cloudcomputing.company.company.domain.Company;
 import com.cloudcomputing.company.company.domain.CompanyRepository;
 import com.cloudcomputing.company.review.domain.Review;
@@ -31,36 +30,36 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Review create(User user, ReviewCreateRequest request) {
-        Company company = companyRepository.getById(request.getCompanyId());
-        if (!company.getName().equals(user.getCompanyName())) {
+    public Review create(ReviewCreateRequest request) {
+        Company company = companyRepository.getById(request.getReviewCompanyId());
+        if (!company.getName().equals(request.getUserCompanyName())) {
             throw new NotMatchingCompanyException();
         }
 
         company.updateReviewCount(true);
-        company.updateStar(request.getStar());
+        company.updateStar(request.getReviewStar());
 
         return reviewRepository.save(
                 Review.builder()
-                      .writerId(user.getId())
-                      .writerEmail(user.getEmail())
+                      .writerId(request.getUserId())
+                      .writerNickname(request.getUserNickname())
                       .company(company)
-                      .title(request.getTitle())
-                      .content(request.getContent())
-                      .star(request.getStar())
+                      .title(request.getReviewTitle())
+                      .content(request.getReviewContent())
+                      .star(request.getReviewStar())
                       .build());
     }
 
     @Override
-    public Review update(Long reviewId, User user, ReviewUpdateRequest request) {
+    public Review update(Long reviewId, ReviewUpdateRequest request) {
         Review review = reviewRepository.findById(reviewId);
-        if (!review.getWriterId().equals(user.getId())) {
+        if (!review.getWriterId().equals(request.getUserId())) {
             throw new UnauthorizedAccessException();
         }
 
         review.getCompany().updateStar(-review.getStar());
-        review.getCompany().updateStar(request.getStar());
+        review.getCompany().updateStar(request.getReviewStar());
 
-        return review.update(request.getTitle(), request.getContent(), request.getStar());
+        return review.update(request.getReviewTitle(), request.getReviewContent(), request.getReviewStar());
     }
 }
