@@ -5,7 +5,7 @@ import java.util.List;
 import com.cloudcomputing.company.company.domain.Company;
 
 public interface CompanyService {
-    List<Company> getList(int page);
+    List<CompanyResponse> getList(int page);
 
     Company getById(Long companyId);
 

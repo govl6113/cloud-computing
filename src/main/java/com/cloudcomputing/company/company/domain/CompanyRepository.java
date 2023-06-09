@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 
+import com.cloudcomputing.company.company.infra.http.response.CompanyResponse;
+
 public interface CompanyRepository {
 
-    List<Company> getList(Pageable pageable);
+    List<CompanyResponse> getList(Pageable pageable);
 
     Company getById(Long companyId);
 
