@@ -12,4 +12,6 @@ public interface CompanyJpaRepository extends JpaRepository<Company,Long> {
     List<Company> getAll(Pageable pageable);
 
     Optional<Company> findById(Long id);
+
+    Optional<Company> findByName(String name);
 }

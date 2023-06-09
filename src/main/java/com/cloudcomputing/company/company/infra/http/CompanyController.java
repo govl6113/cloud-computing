@@ -3,10 +3,10 @@ package com.cloudcomputing.company.company.infra.http;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,17 +26,23 @@ public class CompanyController {
     @GetMapping("/list")
     public List<CompanyResponse> getList(
             @RequestParam(value = "page", required = false, defaultValue = "1") int page
-    ){
+    ) {
         return companyService.getList(page).stream()
-                .map(it -> it.toResponse())
-                .collect(Collectors.toList());
+                             .map(it -> it.toResponse())
+                             .collect(Collectors.toList());
     }
 
-
     @GetMapping("/{companyId}")
-    public CompanyResponse get (
+    public ResponseEntity<CompanyResponse> getById(
             @PathVariable("companyId") @Valid @NotBlank Long companyId
-    ){
-        return companyService.get(companyId).toResponse();
+    ) {
+        return ResponseEntity.ok().body(companyService.getById(companyId).toResponse());
+    }
+
+    @GetMapping("/{companyName}")
+    public ResponseEntity<CompanyResponse> getByName(
+            @PathVariable("companyName") @Valid @NotBlank String companyName
+    ) {
+        return ResponseEntity.ok().body(companyService.getByName(companyName).toResponse());
     }
 }
