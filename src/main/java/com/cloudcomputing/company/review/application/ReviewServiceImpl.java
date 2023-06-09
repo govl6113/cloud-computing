@@ -30,6 +30,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    @Transactional
     public Review create(ReviewCreateRequest request) {
         Company company = companyRepository.getById(request.getReviewCompanyId());
         if (!company.getName().equals(request.getUserCompanyName())) {
@@ -51,6 +52,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    @Transactional
     public Review update(Long reviewId, ReviewUpdateRequest request) {
         Review review = reviewRepository.findById(reviewId);
         if (!review.getWriterId().equals(request.getUserId())) {
