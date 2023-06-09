@@ -28,7 +28,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
     }
 
     @Override
-    public Review findById(Long reviewId) {
+    public Review getById(Long reviewId) {
         return reviewRepository.findById(reviewId).orElseThrow(NotFoundReviewException::new);
     }
 }

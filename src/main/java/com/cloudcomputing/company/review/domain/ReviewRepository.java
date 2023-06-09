@@ -9,5 +9,5 @@ public interface ReviewRepository {
 
     Review save(Review review);
 
-    Review findById(Long reviewId);
+    Review getById(Long reviewId);
 }

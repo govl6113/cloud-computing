@@ -54,7 +54,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     @Transactional
     public Review update(Long reviewId, ReviewUpdateRequest request) {
-        Review review = reviewRepository.findById(reviewId);
+        Review review = reviewRepository.getById(reviewId);
         if (!review.getWriterId().equals(request.getUserId())) {
             throw new UnauthorizedAccessException();
         }
