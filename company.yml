@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: company
+  labels:
+    app: company
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: company
+  template:
+    metadata:
+      labels:
+        app: company
+    spec:
+      containers:
+        - name: company
+          image: govl6113/company:0.0.3
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DATASOURCE_URL
+              value: "jdbc:postgresql://postgres:5432/company"
+            - name: POSTGRES_USERNAME
+              value: company
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret-config
+                  key: password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: company
+spec:
+  selector:
+    app: company
+  ports:
+    - name: tcp
+      port: 80
+      protocol: TCP
+      targetPort: 8080
